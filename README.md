@@ -1,4 +1,4 @@
-# Diet-fitness-web-app
+# PrediFit: Predict Your Path to Peak Fitness
 
 A Flask-based fitness management web application that helps users track workouts, diet plans, and overall fitness progress.  
 The project is designed to demonstrate CRUD operations, database integration, and a clean front-end interface using React
