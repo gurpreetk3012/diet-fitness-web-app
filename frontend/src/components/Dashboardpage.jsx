@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const DashboardPage = ({ user, onLogout }) => {
+const DashboardPage = ({ user, onLogout, onEditProfile }) => {
   const [metrics, setMetrics] = useState({ bmi: "--", bmr: "--" });
 
   useEffect(() => {
@@ -15,19 +15,32 @@ const DashboardPage = ({ user, onLogout }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
       <header className="bg-card shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">FitLoop Dashboard</h1>
+        <div className="container mx-auto px-14 py-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">PrediFit Dashboard</h1>
           {/* Placeholder Logout Button */}
-          <button 
-          onClick={onLogout}
-          className="bg-transparent text-foreground font-semibold px-6 py-2 rounded-lg hover:bg-[#30e8ba]/90 hover:text-white transition-colors">
-            Logout
-          </button>
-        </div>
-      </header>
+          <div className="flex space-x-4">
+            <button
+              className="flex items-center bg-transparent text-foreground font-semibold px-5 py-2 rounded-lg hover:bg-[#30e8ba]/90 hover:text-white transition-colors"
+              title="Home"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 2 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5z" />
+              </svg>
+              Home
+            </button>
+            <button
+              onClick={onLogout}
+              className="bg-transparent text-foreground font-semibold px-5 py-2 rounded-lg hover:bg-[#30e8ba]/90 hover:text-white transition-colors"
+              title="Logout"
+            >
+              Logout
+            </button>
+          </div>
+          </div>
+          </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-8">
-        {/* User Profile Overview */}
+          <main className="container mx-auto px-14 py-8 space-y-8">
+            {/* User Profile Overview */}
         <div className="bg-white rounded-2xl shadow p-6 flex items-center gap-6">
           {/* Placeholder Avatar */}
           <div className="h-20 w-20 flex items-center justify-center bg-primary/10 rounded-full">
@@ -59,6 +72,7 @@ const DashboardPage = ({ user, onLogout }) => {
           </div>
           {/* Edit Profile Button */}
           <button
+            onClick={onEditProfile}
             className="flex items-center gap-2 px-5 py-2 rounded-xl border border-[#e2f2ea] text-[#003817] font-semibold bg-white hover:bg-[#30e8ba] transition-colors hover:text-white"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -137,7 +151,7 @@ const DashboardPage = ({ user, onLogout }) => {
 
         {/* Feature Cards Section */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Discover FitLoop Tools</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Discover PrediFit Tools</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: BMI & BMR Calculator */}
             <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative" style={{ background: "rgba(44,207,171,0.08)" }}>
@@ -165,7 +179,7 @@ const DashboardPage = ({ user, onLogout }) => {
               </div>
             </div>
             {/* Card 3: Custom Workout Plans */}
-            <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative" style={{ background: "rgba(44,207,171,0.08)" }}>
+            {/* <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative" style={{ background: "rgba(44,207,171,0.08)" }}>
               <div className="absolute top-6 left-6 bg-[#2ee59d]/90 p-3 rounded-xl">
                 <span role="img" aria-label="workout">🏋️‍♂️</span>
               </div>
@@ -175,9 +189,9 @@ const DashboardPage = ({ user, onLogout }) => {
                   Access workout routines designed specifically for your fitness level and objectives.
                 </p>
               </div>
-            </div>
+            </div> */}
             {/* Card 4: Yoga & Mindfulness */}
-            <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative mt-8 md:mt-0" style={{ background: "rgba(44,207,171,0.10)" }}>
+            {/* <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative mt-8 md:mt-0" style={{ background: "rgba(44,207,171,0.10)" }}>
               <div className="absolute top-6 left-6 bg-[#2ee59d]/90 p-3 rounded-xl">
                 <span role="img" aria-label="yoga">🧘‍♂️</span>
               </div>
@@ -187,9 +201,9 @@ const DashboardPage = ({ user, onLogout }) => {
                   Discover personalized yoga routines and meditation practices for mental and physical balance.
                 </p>
               </div>
-            </div>
+            </div> */}
             {/* Card 5: Progress Tracker */}
-            <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative mt-8 md:mt-0" style={{ background: "rgba(44,207,171,0.12)" }}>
+            {/* <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative mt-8 md:mt-0" style={{ background: "rgba(44,207,171,0.12)" }}>
               <div className="absolute top-6 left-6 bg-[#2ee59d]/90 p-3 rounded-xl">
                 <span role="img" aria-label="tracker">📈</span>
               </div>
@@ -199,7 +213,7 @@ const DashboardPage = ({ user, onLogout }) => {
                   Monitor your weight, workouts, and achievements with detailed tracking and analytics.
                 </p>
               </div>
-            </div>
+            </div> */}
             {/* Card 6: Daily Fitness Tips */}
             <div className="bg-white rounded-2xl shadow-lg p-0 overflow-hidden relative mt-8 md:mt-0" style={{ background: "rgba(44,207,171,0.09)" }}>
               <div className="absolute top-6 left-6 bg-[#2ee59d]/90 p-3 rounded-xl">

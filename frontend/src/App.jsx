@@ -2,8 +2,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import HealthyOptions from "./components/healthyOptions";
 import IsLogin from "./components/isLogin";
 import DashboardPage from "./components/Dashboardpage";
+import EditProfile from "./components/EditProfile";
 
 function App() {
   const [page, setPage] = useState("home"); // "home" | "login" | "dashboard"
@@ -19,19 +21,34 @@ function App() {
     setPage("home");
   };
 
+  const fetchProfile = async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch("http://127.0.0.1:5000/api/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (response.ok) {
+      const profile = await response.json();
+      setUser(profile);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar always visible */}
-      <Navbar
-        onHomeClick={() => setPage("home")}
-        onLoginClick={() => setPage("login")}
-        onDashboardClick={() => setPage("dashboard")}
-        onLogout={handleLogout}
-        isLoggedIn={!!user}
-      />
+      {/* Render Navbar only if not on dashboard */}
+      {page !== "dashboard" && (
+        <Navbar
+          onHomeClick={() => setPage("home")}
+          onLoginClick={() => setPage("login")}
+          onDashboardClick={() => setPage("dashboard")}
+          onLogout={handleLogout}
+          isLoggedIn={!!user}
+        />
+      )}
 
       {/* Animated page transitions */}
-      <div className="p-6">
+      <div>
         <AnimatePresence mode="wait">
           {!user && page === "home" && (
             <motion.div
@@ -42,6 +59,7 @@ function App() {
               transition={{ duration: 0.5 }}
             >
               <Hero />
+              <HealthyOptions />
             </motion.div>
           )}
 
@@ -65,7 +83,25 @@ function App() {
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.5 }}
             >
-              <DashboardPage user={user} onLogout={handleLogout} />
+              <DashboardPage user={user} onLogout={handleLogout} onEditProfile={() => setPage("edit-profile")} />
+            </motion.div>
+          )}
+
+          {user && page === "edit-profile" && (
+            <motion.div
+              key="edit-profile"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.5 }}
+            >
+              <EditProfile
+                user={user}
+                onClose={() => {
+                  fetchProfile();
+                  setPage("dashboard");
+                }}
+              />
             </motion.div>
           )}
         </AnimatePresence>

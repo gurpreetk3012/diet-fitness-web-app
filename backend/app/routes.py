@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from utils.bmi_bmr import calculate_bmi, calculate_bmr
 from utils.meal_plan_recommendation import recommend_meals, final_df
 from . models import User
 from . import db
+import bcrypt
 
 auth_routes = Blueprint("auth_routes", __name__)
 bmi_bp = Blueprint('bmi_bp', __name__)
@@ -27,11 +29,13 @@ def register():
 
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "Email already registered"}), 400
+    
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     new_user = User(
         name=name,
         email=email,
-        password=password,
+        password=hashed_password,
         age=age,
         height=height,
         weight=weight,
@@ -57,12 +61,12 @@ def login():
     email = data.get("email")
     password = data.get("password")
 
-    user = User.query.filter_by(email=email, password=password).first()
-    if not user:
-        return jsonify({"message": "Invalid email or password"}), 401
-
-    return jsonify({
+    user = User.query.filter_by(email=email).first()
+    if user and bcrypt.checkpw(password.encode('utf-8'), user.password):
+        access_token = create_access_token(identity=user.email)
+        return jsonify({
         "message": "Login successful",
+        "access_token": access_token,
         "id": user.id,
         "name": user.name,
         "email": user.email,
@@ -70,8 +74,48 @@ def login():
         "height": user.height,
         "weight": user.weight,
         "gender": user.gender
-    }), 200
-    
+        }), 200
+    else:
+        return jsonify({"message": "Invalid email or password"}), 401
+
+# Get user profile
+@auth_routes.route('/api/profile', methods=['GET'])
+@jwt_required()
+def get_profile():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+    return jsonify({
+        'name': user.name,
+        'email': user.email,
+        'age': user.age,
+        'height': user.height,
+        'weight': user.weight,
+        'gender': user.gender
+    })
+
+# Update user profile
+@auth_routes.route('/api/profile/update', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    email = get_jwt_identity()
+    data = request.get_json()
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    user.name = data.get('name', user.name)
+    user.age = data.get('age', user.age)
+    user.height = data.get('height', user.height)
+    user.weight = data.get('weight', user.weight)
+    user.gender = data.get('gender', user.gender)
+
+    db.session.commit()
+
+    return jsonify({'status': 'success', 'message': 'Profile updated successfully'})
+
 # Dashboard BMI/BMR API
 @bmi_bp.route('/bmi_bmr/dashboard', methods=['GET'])
 def get_bmi_bmr_dashboard():

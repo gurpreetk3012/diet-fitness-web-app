@@ -2,12 +2,12 @@ import React from "react";
 
 function Navbar({ onHomeClick, onLoginClick, onDashboardClick, onLogout, isLoggedIn }) {
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-green-400 to-emerald-600 text-white shadow-md">
+    <nav className="flex justify-between items-center px-14 py-4 bg-[#f6fbfb] text-green-500 shadow-md">
       <h1
         className="text-2xl font-bold cursor-pointer hover:scale-105 transition-transform duration-200"
         onClick={onHomeClick}
       >
-        FitLoop
+        PrediFit
       </h1>
 
       <div className="flex gap-4">
@@ -15,13 +15,16 @@ function Navbar({ onHomeClick, onLoginClick, onDashboardClick, onLogout, isLogge
           <>
             <button
               onClick={onHomeClick}
-              className="bg-white text-green-600 px-4 py-2 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white border text-green-900 px-4 py-2 rounded-xl font-semibold hover:bg-[#30e8ba]/90 hover:text-white transition-colors"
             >
-              Home
+              Sign Up
             </button>
             <button
               onClick={onLoginClick}
-              className="bg-white text-green-600 px-4 py-2 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+              className="px-4 py-2 rounded-xl font-semibold text-white transition-colors"
+              style={{
+                background: 'linear-gradient(to right, #22c670, #20ddd8)'
+              }}
             >
               Login
             </button>
@@ -32,7 +35,7 @@ function Navbar({ onHomeClick, onLoginClick, onDashboardClick, onLogout, isLogge
               onClick={onDashboardClick}
               className="bg-white text-green-600 px-4 py-2 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
             >
-              Dashboard
+              Home
             </button>
             <button
               onClick={onLogout}

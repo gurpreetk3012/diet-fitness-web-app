@@ -26,6 +26,7 @@ const IsLogin = ({ onAuthSuccess }) => {
     const data = await response.json();
 
     if (response.ok) {
+      localStorage.setItem("token", data.access_token);
       if (onAuthSuccess) onAuthSuccess(data);
     } else {
       alert(data.message || "Login failed");
