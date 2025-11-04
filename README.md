@@ -1,6 +1,6 @@
-# Fitness Project
+# PrediFit: Predict Your Path to Peak Fitness
 
-A **Flask-based fitness management web application** that helps users track workouts, diet plans, and overall fitness progress.  
+A Flask-based fitness management web application that helps users track workouts, diet plans, and overall fitness progress.  
 The project is designed to demonstrate CRUD operations, database integration, and a clean front-end interface using React
 
 ## Features
@@ -22,9 +22,10 @@ The project is designed to demonstrate CRUD operations, database integration, an
 | **Database** | SQLite / MySQL |
 | **Tools** | Git, GitHub, VS Code |
 
-## Installation & Setup
+## Setup Notes
+See [setup_notes.md](docs/setup_notes.md) for detailed instructions.
 
 ### Clone the repository
 ```bash
-git clone https://github.com/SiddharthGadanayak/Fitness-Project.git
-cd Fitness-Project
+git clone https://github.com/gurpreetk3012/diet-fitness-web-app.git
+cd diet-fitness-web-app
