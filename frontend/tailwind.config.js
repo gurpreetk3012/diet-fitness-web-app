@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Poppins', "ui-sans-serif", "system-ui", "Arial", 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

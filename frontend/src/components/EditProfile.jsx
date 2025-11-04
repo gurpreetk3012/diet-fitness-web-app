@@ -71,7 +71,7 @@ function EditProfile({ user, onClose }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 py-8">
+    <div className="min-h-screen bg-[#f3fcfa] py-8">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex justify-between items-center mb-6">

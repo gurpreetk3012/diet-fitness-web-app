@@ -12,11 +12,11 @@ const FeatureCards = () => {
         {cardItems.map((item, idx) => (
           <div
             key={idx}
-            className="group bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col items-center justify-center py-8 transition hover:shadow-lg hover:bg-[#43cea2]/80 cursor-pointer"
+            className="group bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col items-center justify-center py-8 transition-transform duration-500 hover:scale-[1.02] hover:shadow-lg hover:bg-[#43cea2]/80 cursor-pointer"
           >
-            <div className="text-3xl mb-3 transition-colors duration-200 group-hover:text-white">{item.icon}</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2 text-center transition-colors duration-200 group-hover:text-white">{item.title}</h3>
-            <p className="text-gray-500 text-sm text-center transition-colors duration-200 group-hover:text-white">{item.subtitle}</p>
+            <div className="text-3xl mb-3 transition-colors duration-200">{item.icon}</div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2 text-center transition-colors duration-200">{item.title}</h3>
+            <p className="text-gray-500 text-sm text-center transition-colors duration-200">{item.subtitle}</p>
           </div>
         ))}
       </div>
